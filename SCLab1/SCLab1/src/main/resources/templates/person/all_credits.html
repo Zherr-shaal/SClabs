@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/css/bootstrap.min.css" integrity="sha384-DhY6onE6f3zzKbjUPRc2hOzGAdEf4/Dz+WJwBvEYL/lkkIsI3ihufq9hk9K4lVoK" crossorigin="anonymous">
+
+    <title>Список кредитов</title>
+</head>
+<body>
+<div class="container">
+
+    <h3 th:text="${person.surname}+' '+${person.name}+' '+${person.patronymic}"></h3>
+    <hr>
+    <a th:href="@{/person/selectCredit (id=${person.id})}"
+       class="btn btn-primary btn-sm mb-3"> Выдать кредит </a>
+    <br/>
+
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+        <tr>
+            <th>ID</th>
+            <th>Сумма</th>
+            <th>Срок</th>
+            <th>Тип кредита</th>
+            <th>Процент</th>
+            <th>Действия</th>
+
+
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="tempCredit : ${person.credit}">
+
+            <td th:text="${tempCredit.id}" />
+            <td th:text="${tempCredit.sum}" />
+            <td th:text="${tempCredit.term}+' '+${tempCredit.timetype.name}" />
+            <td th:text="${tempCredit.type}" />
+            <td th:text="${tempCredit.percent}" />
+             <td>
+                 
+                <a th:href="@{/person/deleteCredit (id=${tempCredit.id}, id_person=${person.id})}"
+                   class="btn btn-warning btn-sm"
+                   onclick="if (!(confirm('Удалить?'))) return false">Удалить</a>
+            </td>
+
+        </tr>
+
+        </tbody>
+    </table>
+
+   
+    <a th:href="@{/}">В главное меню</a>
+
+
+</div>
+</body>
+</html>

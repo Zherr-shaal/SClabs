@@ -1,0 +1,58 @@
+<head>
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/css/bootstrap.min.css" integrity="sha384-DhY6onE6f3zzKbjUPRc2hOzGAdEf4/Dz+WJwBvEYL/lkkIsI3ihufq9hk9K4lVoK" crossorigin="anonymous">
+
+    <title>Список карт</title>
+</head>
+<body>
+<div class="container">
+
+    
+
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+        <tr>
+            <th>ID</th>
+            <th>Имя</th>
+            <th>Фамилия</th>
+            <th>Отчество</th>
+            <th>Пол</th>
+            <th>Дата рождения</th>
+            <th>Телефон</th>
+            <th>Адрес</th>
+            <th>Действия</th>
+
+
+        </tr>
+        </thead>
+
+        <tbody>
+       <tr th:each="tempPerson : ${credit.person}">
+
+            <td th:text="${tempPerson.id}" />
+            <td th:text="${tempPerson.name}" />
+            <td th:text="${tempPerson.surname}" />
+            <td th:text="${tempPerson.patronymic}" />
+            <td th:text="${tempPerson.gender} ? ${tempPerson.gender} : 'Не указано'" />
+            <td th:text="${tempPerson.birth_date} ? ${tempPerson.birth_date} : 'Не указано'"/>
+            <td th:text="${tempPerson.phone}" />
+            <td th:text="${tempPerson.addres}" />
+            <td>
+                <a th:href="@{/person/deleteCredit (id=${credit.id},id_person=${tempPerson.id})}"
+                   class="btn btn-warning btn-sm"
+                   onclick="if (!(confirm('Удалить?'))) return false">Удалить</a>
+            </td>
+
+        </tr>
+
+        </tbody>
+    </table>
+
+   
+    <a th:href="@{/person/list}">К списку клиентов</a>
+
+
+</div>
+</body>
+</html>

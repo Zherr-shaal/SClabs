@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/css/bootstrap.min.css" integrity="sha384-DhY6onE6f3zzKbjUPRc2hOzGAdEf4/Dz+WJwBvEYL/lkkIsI3ihufq9hk9K4lVoK" crossorigin="anonymous">
+
+    <title>Добавление карты</title>
+</head>
+<body>
+<div class="container">
+
+    <h3 th:text="${person.surname}+' '+${person.name}+' '+${person.patronymic}"></h3>
+    <hr>
+
+    <form action="#" th:action="@{/person/savecard(id_card=${person.id})}" th:object="${card}"
+          method="POST">
+
+        <input type="hidden" th:field="*{id}">
+
+        <input type="text" th:field="*{sum}" class="form-control mb-4 col-4"
+               placeholder="Изначальная сумма" required>
+
+        <input type="text" th:field="*{number}" class="form-control mb-4 col-4"
+               placeholder="Номер карты" required>
+        <select class="form-control selectpicker mb-4 col-4" th:field="*{cardtype}" name="cardtype">
+            <option th:each="tempCardType : ${types}"
+                    th:value="${tempCardType.id}"
+                    th:text="${tempCardType.type}">
+            </option>
+        </select>
+        <button type="submit" class="btn btn-warning col-2">Сохранить</button>
+    </form>
+    
+
+   
+    <a th:href="@{/person/list}">К списку клиентов</a>
+
+
+</div>
+</body>
+</html>

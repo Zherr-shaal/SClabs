@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th = "http://www.thymeleaf.com" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title th:text = "'Меню'"></title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/css/bootstrap.min.css" integrity="sha384-DhY6onE6f3zzKbjUPRc2hOzGAdEf4/Dz+WJwBvEYL/lkkIsI3ihufq9hk9K4lVoK" crossorigin="anonymous">
+
+</head>
+<body>
+<div class="container">
+    <h3>Меню</h3>
+    <hr>
+    <a th:href="@{/person/list}"
+       class="btn btn-primary btn-sm mb-3"> Физические лица</a>
+    <br/>
+    <a th:href="@{/credit/list}"
+       class="btn btn-primary btn-sm mb-3"> Кредиты</a>
+    <br/>
+    <a th:href="@{/deposit/list}"
+       class="btn btn-primary btn-sm mb-3"> Вклады</a>
+    <br/>
+    <a th:href="@{/card/list}"
+       class="btn btn-primary btn-sm mb-3"> Карты</a>
+    <br/>
+    <a th:href="@{/manager/list}"
+       class="btn btn-primary btn-sm mb-3"> Менеджеры</a>
+    <br/>
+    <a th:href="@{/org/list}"
+       class="btn btn-primary btn-sm mb-3"> Юридические лица</a>
+    <br/>
+    </div>
+</body>
+</html>

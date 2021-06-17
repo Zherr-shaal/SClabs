@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/css/bootstrap.min.css" integrity="sha384-DhY6onE6f3zzKbjUPRc2hOzGAdEf4/Dz+WJwBvEYL/lkkIsI3ihufq9hk9K4lVoK" crossorigin="anonymous">
+
+    <title>Список карт</title>
+</head>
+<body>
+<div class="container">
+
+    <h3 th:text="${person.surname}+' '+${person.name}+' '+${person.patronymic}"></h3>
+    <hr>
+    <a th:href="@{/person/addCard (id=${person.id})}"
+       class="btn btn-primary btn-sm mb-3"> Выдать карту </a>
+    <br/>
+
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+        <tr>
+            <th>ID</th>
+            <th>Количество денег</th>
+            <th>Номер</th>
+            <th>Тип карты</th>
+            <th>Действия</th>
+
+
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="tempCredit : ${person.card}">
+            <td th:text="${tempCredit.id}" />
+            <td th:text="${tempCredit.sum}" />
+            <td th:text="${tempCredit.number}" />
+            <td th:text="${tempCredit.cardtype.type}" />
+            <td>
+            <a th:href="@{/person/deletecard (id=${tempCredit.id}, id_person=${person.id})}"
+                   class="btn btn-warning btn-sm"
+                   onclick="if (!(confirm('Удалить?'))) return false">Удалить</a>
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+
+   
+    <a th:href="@{/person/list}">К списку клиентов</a>
+
+
+</div>
+</body>
+</html>
