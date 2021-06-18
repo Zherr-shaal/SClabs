@@ -13,6 +13,7 @@ import com.mycompany.SCLab1.services.CardService;
 import com.mycompany.SCLab1.services.CardTypeService;
 import com.mycompany.SCLab1.services.CreditService;
 import com.mycompany.SCLab1.services.PersonService;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,8 +42,8 @@ public class PersonController {
     }
     
     @GetMapping("/list")
-    public String getPersonlist(Model model){
-        model.addAttribute("person", personService.findAll());
+    public String getPersonlist(Pageable page, Model model){
+        model.addAttribute("person", personService.findAll(page));
         return "person/show_all";
     }
     @GetMapping("/add")

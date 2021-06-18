@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/css/bootstrap.min.css" integrity="sha384-DhY6onE6f3zzKbjUPRc2hOzGAdEf4/Dz+WJwBvEYL/lkkIsI3ihufq9hk9K4lVoK" crossorigin="anonymous">
+
+    <title>Список менеджеров</title>
+</head>
+<body>
+<div class="container">
+
+    <h3>Карты</h3>
+    <hr>
+    <a th:href="@{/manager/add}"
+       class="btn btn-primary btn-sm mb-3"> Добавить менеджера </a>
+    <br/>
+
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+        <tr>
+            <th>ID</th>
+            <th>Фамилия</th>
+            <th>Имя</th>
+            <th>Отчество</th>
+            <th>Должность</th>
+            <th>Зарплата</th>
+            <th>Образование</th>
+            <th>Действия</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="tempManager : ${manager}">
+
+            <td th:text="${tempManager.id}" />
+            <td th:text="${tempManager.surname}" />
+            <td th:text="${tempManager.name}" />
+            <td th:text="${tempManager.patronymic} ? ${tempManager.patronymic} : 'Не указано'" />
+            <td th:text="${tempManager.position}" />
+            <td th:text="${tempManager.salary}" />
+            <td th:text="${tempManager.education}" />
+            
+            <td>
+                <a th:href="@{/manager/update (id=${tempManager.id})}"
+                    class="btn btn-info btn-sm">Обновить</a>
+                <a th:href="@{/manager/person (id=${tempManager.id})}"
+                    class="btn btn-info btn-sm">Показать клиентов</a>    
+                <a th:href="@{/manager/delete (id=${tempManager.id})}"
+                   class="btn btn-warning btn-sm"
+                   onclick="if (!(confirm('Удалить?'))) return false">Удалить</a>
+            </td>
+
+        </tr>
+
+        </tbody>
+    </table>
+
+   
+    <a th:href="@{/}">В главное меню</a>
+
+
+</div>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/css/bootstrap.min.css" integrity="sha384-DhY6onE6f3zzKbjUPRc2hOzGAdEf4/Dz+WJwBvEYL/lkkIsI3ihufq9hk9K4lVoK" crossorigin="anonymous">
+
+    <title>Обновить информацию о менеджере</title>
+</head>
+
+<body>
+<div class="container">
+    <hr>
+
+    <p th:text="${manager.name} ? 'Обновить данные клиента' : 'Добавить клиента' "class="h4 mb-4"></p>
+
+    <form action="#" th:action="@{/manager/save}" th:object="${manager}"
+          method="POST">
+
+        <input type="hidden" th:field="*{id}">
+
+        <input type="text" th:field="*{surname}" class="form-control mb-4 col-4"
+               placeholder="Фамилия" required>
+
+        <input type="text" th:field="*{name}" class="form-control mb-4 col-4"
+               placeholder="Имя" required>
+
+        <input type="text" th:field="*{patronymic}" class="form-control mb-4 col-4"
+               placeholder="Отчество">
+
+        <input type="text" th:field="*{position}" class="form-control mb-4 col-4"
+               placeholder="Должность" required>
+        
+        <input type="text" th:field="*{salary}" class="form-control mb-4 col-4"
+               placeholder="Зарплата" required>
+        
+        <input type="text" th:field="*{education}" class="form-control mb-4 col-4"
+               placeholder="Образование" required>
+
+        <button type="submit" class="btn btn-warning col-2">Сохранить</button>
+    </form>
+    <hr>
+    <a th:href="@{/manager/list}">К списку менеджеров</a>
+</div>
+</body>
+
+</html>

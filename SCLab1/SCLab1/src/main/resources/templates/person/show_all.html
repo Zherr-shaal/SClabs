@@ -40,7 +40,7 @@
             <td th:text="${tempPerson.id}" />
             <td th:text="${tempPerson.name}" />
             <td th:text="${tempPerson.surname}" />
-            <td th:text="${tempPerson.patronymic}" />
+            <td th:text="${tempPerson.patronymic} ? ${tempPerson.patronymic} : 'Не указано'" />
             <td th:text="${tempPerson.gender} ? ${tempPerson.gender} : 'Не указано'" />
             <td th:text="${tempPerson.birth_date} ? ${tempPerson.birth_date} : 'Не указано'"/>
             <td th:text="${tempPerson.phone}" />
@@ -66,7 +66,42 @@
 
    
     <a th:href="@{/}">В главное меню</a>
+<nav aria-label="Pagination" th:if="${person.totalPages gt 0}">
+        <ul class="pagination justify-content-center font-weight-bold">
 
+            <li class="page-item" th:classappend="${person.number eq 0} ? 'disabled'">
+                <a class="page-link"
+                   th:href="@{/person/list (pageNumber=${person.number lt 2 ? 1 : person.number},pageSize=${person.size})}"
+                   aria-label="Previous" title="Previous Page" data-toggle="tooltip">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+
+            <li class="page-item" th:classappend="${i eq person.number + 1} ? 'active'"
+                th:each="i : ${#numbers.sequence( 1, person.totalPages, 1)}">
+                <a class="page-link" th:href="@{/person/list (pageNumber=${i},pageSize=${person.size})}" th:text="${i}"
+                   th:title="${'Page '+ i}" data-toggle="tooltip"></a>
+            </li>
+
+            <li class="page-item" th:classappend="${person.number + 1 eq person.totalPages} ? 'disabled'">
+                <a class="page-link"
+                   th:href="@{/person/list (pageNumber=${person.number + 2},pageSize=${person.size})}"
+                   aria-label="Next" title="Next Page" data-toggle="tooltip">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+
+        </ul>
+    </nav>
+    <div class="container" align="right">
+        Записей на странице:
+        <a class="text-end" th:href="@{/person/list (pageNumber=${person.number + 1}, pageSize=5)}"
+           th:text="5"></a>
+        <a class="text-end" th:href="@{/person/list (pageNumber=${person.number + 1}, pageSize=10)}"
+           th:text="10"></a>
+        <a class="text-end" th:href="@{/person/list (pageNumber=${person.number + 1}, pageSize=15)}"
+           th:text="15"></a>
+    </div>
 
 </div>
 </body>
