@@ -24,15 +24,12 @@ DROP TABLE IF EXISTS `business_credit`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `business_credit` (
   `id_credit` int NOT NULL AUTO_INCREMENT,
-  `id_organization` int DEFAULT NULL,
-  `credit_sum` int DEFAULT NULL,
-  `credit_term` int DEFAULT NULL,
-  `credit_type` varchar(45) DEFAULT NULL,
   `issue_date` date DEFAULT NULL,
   `percent` int DEFAULT NULL,
-  PRIMARY KEY (`id_credit`),
-  KEY `orgcredit_idx` (`id_organization`),
-  CONSTRAINT `orgcredit` FOREIGN KEY (`id_organization`) REFERENCES `organization` (`id_organization`) ON DELETE CASCADE ON UPDATE CASCADE
+  `credit_sum` int DEFAULT NULL,
+  `credit_term` int DEFAULT NULL,
+  `credit_type` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id_credit`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -40,7 +37,10 @@ CREATE TABLE `business_credit` (
 -- Dumping data for table `business_credit`
 --
 
-
+LOCK TABLES `business_credit` WRITE;
+/*!40000 ALTER TABLE `business_credit` DISABLE KEYS */;
+/*!40000 ALTER TABLE `business_credit` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `card`
@@ -67,7 +67,10 @@ CREATE TABLE `card` (
 -- Dumping data for table `card`
 --
 
-
+LOCK TABLES `card` WRITE;
+/*!40000 ALTER TABLE `card` DISABLE KEYS */;
+/*!40000 ALTER TABLE `card` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `card_type`
@@ -87,29 +90,10 @@ CREATE TABLE `card_type` (
 -- Dumping data for table `card_type`
 --
 
-
---
--- Table structure for table `company_bank_account`
---
-
-DROP TABLE IF EXISTS `company_bank_account`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `company_bank_account` (
-  `id_account` int NOT NULL AUTO_INCREMENT,
-  `id_organization` int DEFAULT NULL,
-  `account_number` varchar(45) DEFAULT NULL,
-  `sum` int DEFAULT NULL,
-  PRIMARY KEY (`id_account`),
-  KEY `account_of_idx` (`id_organization`),
-  CONSTRAINT `account_of` FOREIGN KEY (`id_organization`) REFERENCES `organization` (`id_organization`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `company_bank_account`
---
-
+LOCK TABLES `card_type` WRITE;
+/*!40000 ALTER TABLE `card_type` DISABLE KEYS */;
+/*!40000 ALTER TABLE `card_type` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `credit`
@@ -128,13 +112,18 @@ CREATE TABLE `credit` (
   PRIMARY KEY (`id_credit`),
   KEY `FKj6621qwel71guoshue60b8h9` (`type_id`),
   CONSTRAINT `FKj6621qwel71guoshue60b8h9` FOREIGN KEY (`type_id`) REFERENCES `time_type` (`type_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `credit`
 --
 
+LOCK TABLES `credit` WRITE;
+/*!40000 ALTER TABLE `credit` DISABLE KEYS */;
+INSERT INTO `credit` VALUES (7,5000000,20,'Потребительский 1',10,4),(8,10000000,21,'Работяжный',2,4);
+/*!40000 ALTER TABLE `credit` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `credit_person`
@@ -152,13 +141,18 @@ CREATE TABLE `credit_person` (
   KEY `FK4pilvx6lauayas07swx2minq` (`credit_fk`),
   CONSTRAINT `FK4pilvx6lauayas07swx2minq` FOREIGN KEY (`credit_fk`) REFERENCES `credit` (`id_credit`),
   CONSTRAINT `FKamqto49xu0wa5rvu30sqx81o` FOREIGN KEY (`person_fk`) REFERENCES `person` (`id_person`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `credit_person`
 --
 
+LOCK TABLES `credit_person` WRITE;
+/*!40000 ALTER TABLE `credit_person` DISABLE KEYS */;
+INSERT INTO `credit_person` VALUES (5,7,8);
+/*!40000 ALTER TABLE `credit_person` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `deposit`
@@ -169,29 +163,35 @@ DROP TABLE IF EXISTS `deposit`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `deposit` (
   `id_deposit` int NOT NULL AUTO_INCREMENT,
-  `id_person` int DEFAULT NULL,
   `deposit_sum` int DEFAULT NULL,
   `deposit_term` int DEFAULT NULL,
   `deposit_type` varchar(45) DEFAULT NULL,
   `percent` int DEFAULT NULL,
-  PRIMARY KEY (`id_deposit`),
-  KEY `person_deposit_idx` (`id_person`),
-  CONSTRAINT `person_deposit` FOREIGN KEY (`id_person`) REFERENCES `person` (`id_person`) ON DELETE CASCADE ON UPDATE CASCADE
+  `issue_date` date DEFAULT NULL,
+  `credit_term` int DEFAULT NULL,
+  `credit_type` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id_deposit`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `deposit`
-
---
--- Table structure for table `manger`
 --
 
-DROP TABLE IF EXISTS `manger`;
+LOCK TABLES `deposit` WRITE;
+/*!40000 ALTER TABLE `deposit` DISABLE KEYS */;
+/*!40000 ALTER TABLE `deposit` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `manager`
+--
+
+DROP TABLE IF EXISTS `manager`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `manger` (
-  `id_manager` int NOT NULL,
+CREATE TABLE `manager` (
+  `id_manager` int NOT NULL AUTO_INCREMENT,
   `name` varchar(45) DEFAULT NULL,
   `surname` varchar(45) DEFAULT NULL,
   `patronymic` varchar(45) DEFAULT NULL,
@@ -199,14 +199,18 @@ CREATE TABLE `manger` (
   `salary` int DEFAULT NULL,
   `education` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id_manager`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `manger`
+-- Dumping data for table `manager`
 --
 
-
+LOCK TABLES `manager` WRITE;
+/*!40000 ALTER TABLE `manager` DISABLE KEYS */;
+INSERT INTO `manager` VALUES (1,'Матвей','Жеребцов','Николаевич','Директор кредитного отдела',80000,'Высшее'),(2,'Анна','Линн','','Специалист по кредитам для бизнеса',70000,'Высшее');
+/*!40000 ALTER TABLE `manager` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `organization`
@@ -228,7 +232,10 @@ CREATE TABLE `organization` (
 -- Dumping data for table `organization`
 --
 
-
+LOCK TABLES `organization` WRITE;
+/*!40000 ALTER TABLE `organization` DISABLE KEYS */;
+/*!40000 ALTER TABLE `organization` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `person`
@@ -247,13 +254,18 @@ CREATE TABLE `person` (
   `phone` varchar(25) DEFAULT NULL,
   `addres` varchar(40) DEFAULT NULL,
   PRIMARY KEY (`id_person`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `person`
 --
 
+LOCK TABLES `person` WRITE;
+/*!40000 ALTER TABLE `person` DISABLE KEYS */;
+INSERT INTO `person` VALUES (8,'Мария','Громова','Олеговна','Ж','1998-06-30','+79922212309','Ул. Каспийская 27б'),(9,'Матвей','Жеребцов','Николаевич','М','1998-05-18','+78096504563','ул. Академика Королёва 7'),(10,'Михаил','Калинин','Анатольевич','М','2006-03-18','+79956212309','ул. Екатерининская 190'),(11,'Анна','Линн','','Ж','2003-02-06','+79989312309','ул. Пушкина 86'),(12,'Илья','Жеребцов','Петрович','М','1981-02-18','+78097804563','Ул. Канатная 27б'),(13,'Матвей','Петров','Анатольевич','М','1980-03-18','+7 (992) 221-23-09','ул. Пушкина 86');
+/*!40000 ALTER TABLE `person` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `time_type`
@@ -266,13 +278,18 @@ CREATE TABLE `time_type` (
   `type_id` int NOT NULL AUTO_INCREMENT,
   `type_name` varchar(7) DEFAULT NULL,
   PRIMARY KEY (`type_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `time_type`
 --
 
+LOCK TABLES `time_type` WRITE;
+/*!40000 ALTER TABLE `time_type` DISABLE KEYS */;
+INSERT INTO `time_type` VALUES (3,'лет'),(4,'месяцев');
+/*!40000 ALTER TABLE `time_type` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -283,4 +300,4 @@ CREATE TABLE `time_type` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-06-16 21:03:49
+-- Dump completed on 2021-06-18 11:09:32
